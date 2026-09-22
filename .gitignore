@@ -15,12 +15,14 @@ agent_files/
 user_uploads/
 generate_images/
 *.log
+.langgraph_api/
 
 # ===== 前端 =====
 node_modules/
 .next/
 out/
 *.tsbuildinfo
+next-env.d.ts
 
 # ===== IDE / 系统 =====
 .idea/

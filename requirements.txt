@@ -1,16 +1,28 @@
+# ---- Agent 框架 ----
 langchain
 langgraph
-langchain_ollama
+langgraph-cli[inmem]
 langchain_openai
-deepagents
-pymysql
-minio
-langchain-tavily
-langchain-mcp-adapters
+langchain_ollama
+# deepagents 0.7 移除了 backend 工厂(BackendFactory), 本项目依赖该特性实现会话级文件隔离,
+# 必须锁在 0.7 以下, 否则 langgraph dev 启动即报 TypeError.
+deepagents<0.7
+
+# ---- 工具与文档处理 ----
+markitdown[all]
 python-pptx
 pypandoc
-langgraph-cli[inmem]
-markitdown[all]
+
+# ---- MCP(按需开启 PPT / Excel 子代理时使用) ----
+langchain-mcp-adapters
+langchain-tavily
 a2a-sdk[all]
+
+# ---- 存储与数据库 ----
+minio
+pymysql
 psycopg
 weasyprint
+
+# ---- Windows 控制台彩色日志必需(rich/uvicorn 在 Windows 上要求) ----
+colorama

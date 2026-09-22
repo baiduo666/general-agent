@@ -27,25 +27,25 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # -- Installing local requirements --
-ADD ../requirements.txt /deps/outer-all_agent/src/requirements.txt
+ADD ../requirements.txt /deps/outer-general_agent/src/requirements.txt
 
-RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --no-cache-dir -c /api/constraints.txt -r /deps/outer-all_agent/src/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --no-cache-dir -c /api/constraints.txt -r /deps/outer-general_agent/src/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 # -- End of local requirements install --
 
-# -- Adding non-package dependency all_agent --
-ADD .. /deps/outer-all_agent/src
+# -- Adding non-package dependency general_agent --
+ADD .. /deps/outer-general_agent/src
 RUN set -ex && \
     for line in '[project]' \
-                'name = "all_agent"' \
+                'name = "general_agent"' \
                 'version = "0.1"' \
                 '[tool.setuptools.package-data]' \
                 '"*" = ["**/*"]' \
                 '[build-system]' \
                 'requires = ["setuptools>=61"]' \
                 'build-backend = "setuptools.build_meta"'; do \
-        echo "$line" >> /deps/outer-all_agent/pyproject.toml; \
+        echo "$line" >> /deps/outer-general_agent/pyproject.toml; \
     done
-# -- End of non-package dependency all_agent --
+# -- End of non-package dependency general_agent --
 
 
 # -- Installing all local dependencies --
@@ -56,7 +56,7 @@ RUN for dep in /deps/*; do             echo "Installing $dep";             if [ 
 
 ENV LANGGRAPH_STORE='{"enabled": true}'
 
-ENV LANGSERVE_GRAPHS='{"agent": "/deps/outer-all_agent/src/agent.py:agent"}'
+ENV LANGSERVE_GRAPHS='{"agent": "/deps/outer-general_agent/src/agent.py:agent"}'
 
 # -- Ensure user deps didn't inadvertently overwrite langgraph-api
 RUN mkdir -p /api/langgraph_api /api/langgraph_runtime /api/langgraph_license && touch /api/langgraph_api/__init__.py /api/langgraph_runtime/__init__.py /api/langgraph_license/__init__.py
@@ -69,4 +69,4 @@ RUN rm -rf /usr/lib/python*/site-packages/pip* /usr/lib/python*/site-packages/se
 # RUN uv pip uninstall --system pip setuptools wheel && rm /usr/bin/uv /usr/bin/uvx
 
 
-WORKDIR /deps/outer-all_agent/src
+WORKDIR /deps/outer-general_agent/src
