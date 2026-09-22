@@ -1,0 +1,30 @@
+# ===== 环境变量(含密钥, 请从 .env.example 复制) =====
+.env
+docker/.env
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ===== Agent 运行时产物 =====
+agent_files/
+user_uploads/
+generate_images/
+*.log
+
+# ===== 前端 =====
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# ===== IDE / 系统 =====
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

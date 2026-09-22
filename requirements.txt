@@ -1,0 +1,16 @@
+langchain
+langgraph
+langchain_ollama
+langchain_openai
+deepagents
+pymysql
+minio
+langchain-tavily
+langchain-mcp-adapters
+python-pptx
+pypandoc
+langgraph-cli[inmem]
+markitdown[all]
+a2a-sdk[all]
+psycopg
+weasyprint
